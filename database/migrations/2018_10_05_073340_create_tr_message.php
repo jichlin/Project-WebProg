@@ -17,7 +17,7 @@ class CreateTrMessage extends Migration
             $table->increments('MessageId');
             $table->string('Message',300);
             $table->integer('SentBy')->unsigned();
-            $table->foreign('SentBy')->references('UserID')->on('msUser');
+            $table->foreign('SentBy')->references('UserID')->on('msUser')->onDelete('cascade');
         });
     }
 

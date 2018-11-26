@@ -21,7 +21,7 @@ class CreateTrThread extends Migration
             $table->string('ThreadDescription');
             $table->date('CreatedDate');
             $table->boolean('isClosed');
-            $table->foreign('CreatedBy')->references('UserID')->on('msUser');
+            $table->foreign('CreatedBy')->references('UserID')->on('msUser')->onDelete('cascade');
             $table->foreign('CategoryID')->references('CategoryID')->on('msCategory');
 
         });
