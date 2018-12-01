@@ -23,7 +23,6 @@ class CreateTrThread extends Migration
             $table->boolean('isClosed');
             $table->foreign('CreatedBy')->references('UserID')->on('msUser')->onDelete('cascade');
             $table->foreign('CategoryID')->references('CategoryID')->on('msCategory');
-
         });
     }
 

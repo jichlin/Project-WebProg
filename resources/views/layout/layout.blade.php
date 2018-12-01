@@ -10,9 +10,15 @@
 <script src="{{asset('jquery/jquery.min.js')}}">
 </script>
 
+<style>
+    .red-text{
+        color:red;
+    }
+</style>
+
 <body>
 @include('layout.inc.navbar')
-    <div class="container">
+    <div class="container" style="margin-bottom: 20px">
         @yield('content')
     </div>
 @include('layout.inc.footer')
@@ -20,16 +26,17 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+
         function getCurrentTime(){
-            var a = new Date();
-            var d = a.getDay();
-            var date = a.getDate();
-            var month = a.getMonth(); + 1;
-            var year = a.getFullYear();
-            var hour = a.getHours() + 1;
-            var minute = a.getMinutes();
-            var second = a.getSeconds();
-            var day;
+            let a = new Date();
+            let date = a.getDate();
+            let month = a.getMonth(); + 1;
+            let year = a.getFullYear();
+            let hour = a.getHours();
+            let minute = a.getMinutes();
+            let second = a.getSeconds();
+            var day = "";
+            let d = a.getDay();
             if(d == 0){
                 day = "Sunday"
             }
@@ -37,19 +44,28 @@
                 day = "Monday";
             }
             else if(d == 2){
-                day == "Tuesday"
+                day = "Tuesday"
             }
             else if(d == 3){
-                day == "Wednesday"
+                day = "Wednesday"
             }
             else if(d == 4){
-                day == "Thursday"
+            day = "Thursday"
             }
             else if(d == 5){
                 day = "Friday"
             }
-            else {
+            else if(d == 6) {
                 day = "Saturday";
+            }
+            if(hour < 10){
+                hour = "0" + hour;
+            }
+            if(minute < 10){
+                minute = "0" + minute;
+            }
+            if(second < 10){
+                second = "0" + second;
             }
             $('#dateTime').html(day + ", " + date +  "-" + month + "-" + year + ", " + hour + ":" + minute + ":" + second);
         }

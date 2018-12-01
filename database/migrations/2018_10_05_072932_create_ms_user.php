@@ -16,19 +16,18 @@ class CreateMsUser extends Migration
         Schema::create('msUser', function (Blueprint $table) {
             $table->increments('UserID');
             $table->integer('RolesID')->unsigned();
-            $table->string('UserName',30);
+            $table->string('UserName',255);
             $table->string('UserEmail' , 30);
-            $table->string('UserPassword',20);
+            $table->string('UserPassword',255);
             $table->string('UserPhone',30);
             $table->string('UserAddress',50);
             $table->date('UserDOB');
-            $table->string('UserPicture');
-            $table->integer('UserNegativePop');
-            $table->integer('UserPositivePop');
-            $table->char('Gender');
-            $table->string('remember_token');
+            $table->char('UserGender');
+            $table->string('UserPicture')->default('');;
+            $table->integer('UserNegativePop')->default(0);
+            $table->integer('UserPositivePop')->default(0);;
+            $table->string('remember_token')->default('');
             $table->foreign('RolesID')->references('RolesID')->on('msRoles');
-
         });
     }
 

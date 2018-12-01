@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -11,23 +12,36 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0 ; $i < 10 ; $i++) {
             DB::table('msuser')->insert([
-                'rolesID' => random_int(1, 2),
-                'username' => str_random(10),
-                'useremail' => str_random(10) . '@gmail.com',
-                'userpassword' => str_random(10),
-                'userphone' => mt_rand(111111111,999999999),
-                'useraddress' => str_random(20),
-                'userDOB' => date("Y-m-d H:i:s", mt_rand(1262055681, 1262055681)),
-                'userPicture' => str_random(20),
-                'usernegativepop' => random_int(0, 100),
-                'userpositivepop' => random_int(0, 100),
-                'gender' => rand(0, 1) ? 'F' : 'M',
-                'created_at' => date("Y-m-d H:i:s", mt_rand(1262055681, 1262055681)),
-                'updated_at' => date("Y-m-d H:i:s", mt_rand(1262055681, 1262055681))
+                'rolesID' => 1,
+                'username' => 'admin',
+                'useremail' => 'admin@gmail.com',
+                'userpassword' => Hash::make('admin'),
+                'userphone' => '0',
+                'useraddress' => 'test',
+                'userDOB' =>'1998/10/31',
+                'userPicture' => '',
+                'usernegativepop' => 0,
+                'userpositivepop' => 0,
+                'usergender' => 'U',
+                'remember_token' => ''
             ]);
-        }
+
+            DB::table('msuser')->insert([
+                'rolesID' => 2,
+                'username' => 'user',
+                'useremail' => 'user@gmail.com',
+                'userpassword' => Hash::make('user'),
+                'userphone' => '1',
+                'useraddress' => 'test',
+                'userDOB' =>'1998/10/30',
+                'userPicture' => '',
+                'usernegativepop' => 0,
+                'userpositivepop' => 0,
+                'usergender' => 'U',
+                'remember_token' => ''
+            ]);
+
         //
     }
 }

@@ -10,12 +10,6 @@ class ThreadController extends Controller
     public function mainForum(){
          $threadList = Thread::paginate(5);
 
-         return view('mainForum')->with(compact('threadList'));
+         return view('Thread.Index')->with(compact('threadList'));
     }
-
-    public function userForum(){
-        $userThreadList = Thread::paginate(5);
-        return view('userForum')->with(compact('userThreadList'));
-    }
-
 }
