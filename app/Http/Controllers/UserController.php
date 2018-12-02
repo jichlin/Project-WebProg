@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -67,17 +66,23 @@ class UserController extends Controller
             return (new Carbon())->diff(new Carbon($value))->y >= $minAge;
         });
 
+        $messages = [
+            'older_than' => 'Need to be at least 12 years old!'
+        ];
+
+
+
         $validator = Validator::make($request->all(),[
            'username' => 'required|max:255',
-           'email' => 'required|unique:msuser,useremail',
+           'email' => 'required|unique:msuser,useremail|regex:/^.+@.+$/i',
            'password' => 'required|same:confirmPassword|min:6',
            'phone' => 'required|numeric',
            'gender' => 'required',
            'address' => 'required',
-           'photo' => 'mimes:jpeg,bmp,png',
-           'birthday'=>'date_format:d-m-Y|olderThan:12',
+           'photo' => 'required|mimes:jpeg,bmp,png,jpg',
+           'birthday'=>'date_format:Y-m-d|olderThan:12',
            'agree' => 'accepted'
-        ]);
+        ],$messages);
 
         if($validator->fails()){
             return redirect('/register')->withErrors($validator)->withInput();
