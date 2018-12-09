@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model implements Authenticatable
 {
+
+
     protected $table="msUser";
     protected $primaryKey = 'UserID';
     public $timestamps = false;

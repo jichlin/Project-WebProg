@@ -1,0 +1,53 @@
+.profile{
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+
+.red-text{
+    color:red;
+}
+
+.white-text{
+    color:white;
+}
+
+.navbarPicture{
+    border-radius: 20px;
+    width:30px;
+    height: 30px;
+}
+
+#profilePicture{
+    width:200px;
+    height: 200px;
+}
+
+.masterPicture{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.userDetails{
+    padding:50px;
+    border: black 3px solid;
+    margin-left:100px;
+}
+
+.popularity{
+    color:white;
+    width:20px;
+    height:30px;
+}
+
+.positive{
+    background-color: greenyellow;
+}
+
+
+.negative{
+    background-color: red;
+}
