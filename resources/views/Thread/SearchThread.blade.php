@@ -1,7 +1,6 @@
 @extends("layout.layout")
 @section("content")
     {{--Source : https://www.w3schools.com/howto/howto_css_search_button.asp--}}
-    @if(count($threads) > 0)
         <style>
             body {
                 font-family: Arial;
@@ -85,7 +84,7 @@
         {{--Search Bar--}}
         <form action="{{url("/search")}}" method="get" role="search" >
             <div class="input-group">
-                <input type="text" class="form-control" name="searching" placeholder="Seach Forum by Titile, and Category Name">
+                <input type="text" class="form-control" name="searching" placeholder="Seach Forum by Titile, and Category Name" value="{{$search}}">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" style="color: white; background: #2196F3">
                         <span class="glyphicon glyphicon-search fa fa-search"></span>
@@ -93,9 +92,16 @@
                 </span>
             </div>
         </form>
-        {{--https://justlaravel.com/search-functionality-laravel/ || untuk search bar--}}
+
+        <div>
+            <h4>
+                Thread Search Result with '{{$search}}' Keyword(s):
+            </h4>
+            <br>
+        </div>
+
+    @if(count($threads) > 0)
         {{--Source : https://www.w3schools.com/howto/howto_css_search_button.asp--}}
-        <br>
         {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -134,12 +140,9 @@
         </nav>
         {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
 
-
-
     @else
         <div>
             <h3>No Thread Currently Exist</h3>
         </div>
-
     @endif
 @endsection
