@@ -97,6 +97,24 @@ class UserController extends Controller
         }
     }
 
+    public function modifyPop(Request $request){
+        $user = User::where('UserID',$request->id)->first();
+        $value = 0;
+        if($request->pop == 'positive'){
+            $value = $user->UserPositivePop;
+            $value += 1;
+            $user->UserPositivePop = $value;
+        }
+        else{
+            $value = $user->UserNegativePop;
+            $value += 1;
+            $user->UserNegativePop = $value;
+        }
+        $user->update();
+        return redirect('/profile/'.$user->UserName);
+
+    }
+
     public function index(){
         $users = User::paginate(5);
 

@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" style="display: flex;justify-content: space-between">
             <span>User Data</span>
             <a class="btn btn-success" href="{{url('/userform/master/')}}">Add New User</a>
         </div>

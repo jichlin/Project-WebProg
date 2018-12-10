@@ -28,3 +28,4 @@ Route::post('/newUserData','UserController@postUserData');
 
 //Buat Put Request
 Route::put('/updateUserData','UserController@putUserData');
+Route::put('/modifyPop','UserController@modifyPop');
