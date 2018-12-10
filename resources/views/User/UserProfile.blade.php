@@ -9,9 +9,8 @@
         <div style="position: relative">
             <span>Username : {{$user->UserName}}</span>
 
-
+            <div class="popularity" style="position: absolute; right: 0; top:0; height: 200px; width: 200px">
             @if(session('username') != $user->UserName)
-                <div class="popularity" style="position: absolute; right: 0; top:0; height: 200px; width: 200px">
                 <form action="{{url('/modifyPop')}}" method="post" style="position: relative; left: 0;">
                     <h4 class="black-text" style="margin-left:15px;">Give Popularity</h4>
                     {{csrf_field()}}
@@ -22,10 +21,11 @@
                         <button class="btn btn-warning" type="submit" value="negative" name="pop">-</button>
                     </div>
                 </form>
-                </div>
             @else
-            <a class="btn btn-info" href="{{url('/userform/profile/' . $user->UserID)}}">Edit</a>
+            <a class="btn btn-info" style="position: relative; left: 0;" href="{{url('/userform/profile/' . $user->UserID)}}">Edit</a>
             @endif
+            </div>
+
         </div>
         <div>
             <span>

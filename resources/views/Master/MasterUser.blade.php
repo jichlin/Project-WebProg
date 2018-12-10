@@ -59,7 +59,9 @@
             </table>
         </div>
     </div>
+
     <nav>
-    {{$users->links()}}
+        {{$users->links()}}
     </nav>
 @endsection
+

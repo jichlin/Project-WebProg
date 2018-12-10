@@ -1,10 +1,5 @@
 <?php
 
-Route::get('/login','UserController@login');
-Route::get('/','UserController@login');
-Route::get('/register','UserController@register');
-Route::get('/logout','UserController@logout');
-Route::get('/search','ThreadController@searchMainForum');
 //Bagian buat login / register
 Route::get('/login','LoginController@login');
 Route::get('/','LoginController@login');
@@ -13,6 +8,7 @@ Route::get('/logout','LoginController@logout');
 
 //Buat Forum
 Route::get('/forum','ThreadController@mainForum');
+Route::get('/search','ThreadController@searchMainForum');
 
 //Buat Thread
 
