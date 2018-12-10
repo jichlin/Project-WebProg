@@ -43,17 +43,23 @@
                                 Female
                             @endif
                         </td>
-                        <td>
+                        <td style="display: inline-flex;">
                             <a class="btn btn-secondary" href="{{url('/userform/master/'.$user->UserID)}}">
                                 Edit
                             </a>
-                            <a class="btn btn-warning" href="#">Delete</a>
+                            <form action="{{url('/deleteUser/'.$user->UserID)}}" method="post">
+                                {{csrf_field()}}
+                                {{method_field("DELETE")}}
+                                <button type="submit" class="btn btn-warning">Delete</button>
+                            </form>
                         </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{$users->links()}}
         </div>
     </div>
+    <nav>
+    {{$users->links()}}
+    </nav>
 @endsection
