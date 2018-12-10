@@ -3,88 +3,50 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 use App\User;
+use App\Roles;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
-    function login(){
-        if(Auth::check()){
-            return redirect('/forum');
+    public function addeditUserData($from,$id = 0){
+        $user = new User();
+        $action = 'updateUserData';
+        if($from == "profile"){
+            $user = User::where('UserID',$id)->first();
+            return view('Master.AddUpdateMasterUser')->with(compact('user'))->
+            with(compact('from'))->with(compact('action'));
         }
-        else{
-            return view('login');
-        }
-    }
-
-    function loginUser(Request $request){
-        $username = $request->get('username');
-        $password = $request->get('password');
-        $remember = $request->get('remember');
-        $rememberMe = ($remember == 'remember') ? true : false;
-
-
-        $login = Auth::attempt(['username'=>$username,'password'=>$password],$rememberMe);
-
-        $validator = Validator::make(['username'=>$username,'password'=>$password],[
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-
-        if($validator->fails() || $login == false){
-                if($login == false){
-                    $validator->errors()->add('match', 'Username and password does not match or exist!');
-                }
-                return redirect('/login')->withErrors($validator)->withInput();
-        }
-        else{
-            if($rememberMe == true){
-                $cookie = cookie('loginCookie','true',10);
+        else {
+            $roles = Roles::all();
+            if($id == 0){
+                $action ='newUserData';
+                return view('Master.AddUpdateMasterUser')->with(compact('user'))->with(compact('from'))
+                    ->with(compact('roles'))->with(compact('action'));
             }
-            session(['username'=>   $username]);
-            return redirect('/forum');
+            else{
+                $user = User::where('UserID',$id)->first();
+                return view('Master.AddUpdateMasterUser')->with(compact('user'))->with(compact('from'))
+                    ->with(compact('roles'))->with(compact('action'));
+            }
         }
     }
 
-    function logout(){
-        Auth::logout();
-        return redirect('/login');
-    }
-
-    function register(){
-        return view('register');
-    }
-
-    public function registerUser(Request $request){
-
-        Validator::extend('olderThan', function($attribute, $value, $parameters) {
-            $minAge = (!empty($parameters)) ? (int)$parameters[0] : 13;
-            return (new Carbon())->diff(new Carbon($value))->y >= $minAge;
-        });
-
-        $validator = Validator::make($request->all(),[
-           'username' => 'required|max:255',
-           'email' => 'required|unique:msuser,useremail',
-           'password' => 'required|same:confirmPassword|min:6',
-           'phone' => 'required|numeric',
-           'gender' => 'required',
-           'address' => 'required',
-           'photo' => 'mimes:jpeg,bmp,png',
-           'birthday'=>'date_format:d-m-Y|olderThan:12',
-           'agree' => 'accepted'
-        ]);
-
+    public function postUserData(Request $request){
+        $id = $request->id;
+        $from = $request->from;
+        $validator = Controller::validateUserData($request , $from);
         if($validator->fails()){
-            return redirect('/register')->withErrors($validator)->withInput();
+            return redirect()->action('UserController@addeditUserData',['from' => $from, 'id' => $id])->
+            withErrors($validator)->withInput();
         }
         else {
             $user = new User();
-            $user->RolesID = 2;
+            if($id != 0) {
+                $user = User::where('UserID', $id)->first();
+            }
+            $user->RolesID = $request->role;
             $user->UserName = $request->username;
             $user->UserEmail = $request->email;
             $user->UserPassword = Hash::make($request->password);
@@ -93,20 +55,81 @@ class UserController extends Controller
             $date = Carbon::parse($request->birthday);
             $user->UserDOB = $date->format('Y-m-d');
             $user->UserGender = ($request->gender == 'M') ? 'M' : 'F';
-            $path = $request->file('photo')->store('profilePicture');
+            $path = $request->file('photo')->store('public/profilePicture');
             $user->UserPicture = $path;
             $user->remember_token = '';
             $user->save();
-            return redirect('/login');
+            return redirect('/master/user');
         }
     }
 
-    function index(){
+    public function putUserData(Request $request){
+        $id = $request->id;
+        $from = $request->from;
+        $validator = Controller::validateUserData($request , $from);
+        if($validator->fails()){
+            return redirect()->action('UserController@addeditUserData',['from' => $from, 'id' => $id])->
+            withErrors($validator)->withInput();
+        }
+        else {
+            $user = User::where('UserID', $id)->first();
+            if($from == "master"){
+                $user->RolesID = $request->role;
+            }
+            $user->UserName = $request->username;
+            $user->UserEmail = $request->email;
+            $user->UserPassword = Hash::make($request->password);
+            $user->UserPhone = $request->phone;
+            $user->UserAddress = $request->address;
+            $date = Carbon::parse($request->birthday);
+            $user->UserDOB = $date->format('Y-m-d');
+            $user->UserGender = ($request->gender == 'M') ? 'M' : 'F';
+            $path = $request->file('photo')->store('public/profilePicture');
+            $user->UserPicture = $path;
+            $user->remember_token = '';
+            $user->update();
+            if($from == "profile"){
+                return redirect('/profile/'.$user->UserName);
+            }
+            else{
+                return redirect('/master/user');
+            }
+        }
+    }
+
+    public function modifyPop(Request $request){
+        $user = User::where('UserID',$request->id)->first();
+        $value = 0;
+        if($request->pop == 'positive'){
+            $value = $user->UserPositivePop;
+            $value += 1;
+            $user->UserPositivePop = $value;
+        }
+        else{
+            $value = $user->UserNegativePop;
+            $value += 1;
+            $user->UserNegativePop = $value;
+        }
+        $user->update();
+        return redirect('/profile/'.$user->UserName);
 
     }
 
-    function profile($id){
-        $user = User::with('role')->where('UserID',$id)->first();
-        return view('userDetail',compact('user'));
+    public function index(){
+        $users = User::paginate(5);
+
+        return view('Master.MasterUser')->with(compact('users'));
+    }
+
+
+    public function profile($username){
+        $user = User::where('UserName',$username)->first();
+        return view('User.UserProfile',compact('user'));
+    }
+
+    public function remove($id){
+         $user = User::where('UserID',$id);
+         $user->delete();
+         return redirect('/master/user');
     }
 }

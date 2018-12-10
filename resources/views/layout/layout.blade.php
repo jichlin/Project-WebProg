@@ -6,19 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dvForum</title>
     <link rel="stylesheet" type="text/css" href='{{ asset("css/app.css") }}' >
+    <link rel="stylesheet" type="text/css" href='{{ asset("css/Stylesheet.css") }}' >
 </head>
-<script src="{{asset('jquery/jquery.min.js')}}">
-</script>
 
-<style>
-    .red-text{
-        color:red;
-    }
-</style>
+<script src="{{asset('jquery/jquery.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 
 <body>
 @include('layout.inc.navbar')
-    <div class="container" style="margin-bottom: 20px">
+    <div class="container mt-3">
         @yield('content')
     </div>
 @include('layout.inc.footer')
@@ -30,7 +26,7 @@
         function getCurrentTime(){
             let a = new Date();
             let date = a.getDate();
-            let month = a.getMonth(); + 1;
+            let month = a.getMonth() + 1;
             let year = a.getFullYear();
             let hour = a.getHours();
             let minute = a.getMinutes();
