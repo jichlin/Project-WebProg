@@ -9,4 +9,8 @@ class Category extends Model
     //
     protected $table= 'mscategory';
 
+    public function Thread()
+    {
+        return $this->hasMany('App\Thread');
+    }
 }
