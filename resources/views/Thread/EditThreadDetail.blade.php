@@ -68,7 +68,7 @@
                                                                     Edit
                                                                 </button>
                                                             </form>
-                                                            <form class="col-md-1" style="padding-left: 0" action="" method="POST" role="delete">
+                                                            <form class="col-md-1" style="padding-left: 0" action="{{url('forum/'. $threadHeading -> ThreadID .'/delete/'. $threadDetail -> ThreadDetailsID)}}" method="POST" role="delete">
                                                                 {{csrf_field()}}
                                                                 {{method_field('DELETE')}}
                                                                 <button type="submit" class="btn btn-danger">
@@ -105,7 +105,7 @@
             </div>
         </div>
     </div>
-    <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
+    <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/update/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
         {{csrf_field()}}
         {{method_field('PUT')}}
         <div class="panel-group">

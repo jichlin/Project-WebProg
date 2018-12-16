@@ -63,6 +63,21 @@ class ThreadController extends Controller
         return redirect('/forum');
     }
 
+    public function storeThread(Request $request,$id, $post_id){
+        $post = $request -> contentPanel;
+        DB::table('trthreaddetails')
+            ->insert(
+            [
+                'Post' => $post,
+                'ThreadID' => $id,
+                'PostedBy' => $post_id,
+                'PostedDate' => Carbon::now()
+            ]
+        );
+
+        return redirect('/forum/'. $id);
+    }
+
     public function detailThread($id)
     {
         $threadsData = DB::table('trthread')
@@ -80,7 +95,12 @@ class ThreadController extends Controller
             ->where('trthread.ThreadID','=',$id)
             ->first();
 
-        return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData]);
+        $user = DB::table('msuser')
+            ->select('msuser.*')
+            ->where('msuser.UserName','=', session('username'))
+            ->first();
+
+        return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData,'users' => $user]);
     }
 
     public function edit($id)
@@ -147,8 +167,13 @@ class ThreadController extends Controller
 
         return redirect('/forum/'. $id);
     }
-    public function destroy($id)
-    {
 
+    public function destroyThreadDetails($id, $post_id)
+    {
+        DB::table('trthreaddetails')
+            ->where('trthreaddetails.ThreadDetailsID','=',$post_id)
+            ->delete();
+
+        return redirect('/forum/'. $id);
     }
 }
