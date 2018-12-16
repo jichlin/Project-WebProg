@@ -84,6 +84,7 @@
                             <div>Posted at: {{$threadDetail -> PostedDate}}</div>
                         </div>
                         <div class="panel-body">
+                            {{$threadDetail -> Post}}
                         </div>
                     </div>
                 </div>
