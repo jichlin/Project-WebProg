@@ -4,7 +4,7 @@
     @if(count($threads) > 0)
 
         {{--Search Bar--}}
-        <form action="{{url("/search")}}" method="get" role="search" >
+        <form action="{{url("/forum/search")}}" method="get" role="search" >
             <div class="input-group">
                 <input type="text" class="form-control" name="searching" placeholder="Seach Forum by Titile, and Category Name">
                 <span class="input-group-btn">

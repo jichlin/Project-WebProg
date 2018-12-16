@@ -61,21 +61,21 @@
                                                 <div class="container">
                                                     <div class="row">
                                                         @if(session('username') == $threadDetail -> UserName)
-                                                        <form class="col-md-1" action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit">
-                                                            {{ csrf_field() }}
-                                                            <button type="submit" class="btn btn-warning">
-                                                                <span class="glyphicon glyphicon-edit"></span>
-                                                                Edit
-                                                            </button>
-                                                        </form>
-                                                        <form class="col-md-1" style="padding-left: 0" action="" method="POST" role="delete">
-                                                            {{csrf_field()}}
-                                                            {{method_field('DELETE')}}
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <span class="glyphicon glyphicon-remove"></span>
-                                                                Delete
-                                                            </button>
-                                                        </form>
+                                                            <form class="col-md-1" action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit">
+                                                                {{ csrf_field() }}
+                                                                <button type="submit" class="btn btn-warning">
+                                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                                    Edit
+                                                                </button>
+                                                            </form>
+                                                            <form class="col-md-1" style="padding-left: 0" action="" method="POST" role="delete">
+                                                                {{csrf_field()}}
+                                                                {{method_field('DELETE')}}
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                                    Delete
+                                                                </button>
+                                                            </form>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -105,24 +105,25 @@
             </div>
         </div>
     </div>
-    <form action="" method="POST" role="post">
-    {{csrf_field()}}
+    <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
+        {{csrf_field()}}
+        {{method_field('PUT')}}
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Post New Thread
+                    Edit Current Thread
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="content">Content</label>
-                        <textarea class="form-control" name="content"></textarea>
+                        <label for="contentPanel">Content</label>
+                        <textarea class="form-control" name="contentPanel">{{$threadEdited -> Post}}</textarea>
                     </div>
                 </div>
                 <div class="panel-heading">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-send"></span>
-                            Post
+                            Update
                         </button>
                     </div>
                 </div>

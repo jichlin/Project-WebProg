@@ -4,7 +4,7 @@ Route::get('/login','UserController@login');
 Route::get('/','UserController@login');
 Route::get('/register','UserController@register');
 Route::get('/logout','UserController@logout');
-Route::get('/search','ThreadController@searchMainForum');
+Route::get('/forum/search','ThreadController@searchMainForum');
 
 //Bagian buat login / register
 Route::get('/login','LoginController@login');
@@ -14,11 +14,13 @@ Route::get('/logout','LoginController@logout');
 
 //Buat Forum
 Route::get('/forum','ThreadController@mainForum');
+Route::get('/forum/create','ThreadController@createAdd');
+Route::get('/forum/{id}/edit/{post_id}','ThreadController@editThread');
+Route::put('/forum/{id}/store/{post_id}','ThreadController@updateThread');
 Route::get('/forum/{id}','ThreadController@detailThread');
-Route::get('/create','ThreadController@createAdd');
-Route::post('/store','ThreadController@store');
-Route::get('/edit/{id}','ThreadController@edit');
-Route::put('/update/{id}','ThreadController@update');
+Route::get('/forum/edit/{id}','ThreadController@edit');
+Route::post('/forum/store','ThreadController@store');
+Route::put('/forum/update/{id}','ThreadController@update');
 
 
 //Buat Thread

@@ -56,7 +56,7 @@ class ThreadController extends Controller
         $thread -> ThreadDescription = $request -> description;
         $thread -> CreatedDate = Carbon::now();
         $thread -> isClosed = 1;
-        $thread -> CreatedBy = 1; // masih butuh pencerahan
+        $thread -> CreatedBy = 1;
 
         $thread -> save();
 
@@ -65,7 +65,6 @@ class ThreadController extends Controller
 
     public function detailThread($id)
     {
-
         $threadsData = DB::table('trthread')
             ->join('trthreaddetails','trthreaddetails.ThreadID','=','trthread.ThreadID')
             ->join('msuser','msuser.UserID','=','trthreaddetails.PostedBy')
@@ -81,9 +80,6 @@ class ThreadController extends Controller
             ->where('trthread.ThreadID','=',$id)
             ->first();
 
-        // print_r($threadHeading);
-        // print_r($threadsData);
-
         return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData]);
     }
 
@@ -92,6 +88,30 @@ class ThreadController extends Controller
         $thread = Thread::find($id);
         $categories = Category::all();
         return view('Thread.EditThread')->with(compact('thread','categories'));
+    }
+
+    public function editThread($id, $post_id){
+        $threadsData = DB::table('trthread')
+            ->join('trthreaddetails','trthreaddetails.ThreadID','=','trthread.ThreadID')
+            ->join('msuser','msuser.UserID','=','trthreaddetails.PostedBy')
+            ->join('msroles','msroles.RolesID','=','msuser.RolesID')
+            ->select('msuser.*','msroles.*','trthreaddetails.*')
+            ->where('trthreaddetails.ThreadID','=',$id)
+            ->paginate(5);
+
+        $threadHeading = DB::table('trthread')
+            ->join('mscategory','mscategory.CategoryID','=','trthread.CategoryID')
+            ->join('msuser','msuser.UserID','=','trthread.CreatedBy')
+            ->select('trthread.*','mscategory.*','msuser.*')
+            ->where('trthread.ThreadID','=',$id)
+            ->first();
+
+        $threadEdited = DB::table('trthreaddetails')
+            ->select('trthreaddetails.*')
+            ->where('trthreaddetails.ThreadDetailsID','=',$post_id)
+            ->first();
+
+        return view('Thread.EditThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData,'threadEdited'=>$threadEdited]);
     }
 
     public function update(Request $request, $id)
@@ -114,12 +134,19 @@ class ThreadController extends Controller
         $thread -> ThreadName = $request -> name;
         $thread -> CategoryID = $request -> category;
         $thread -> ThreadDescription = $request -> description;
-        $thread -> isClosed = 1; // masih butuh pencerahan
 
         $thread -> save();
         return redirect('/forum');
     }
 
+    public function updateThread(Request $request, $id, $post_id)
+    {
+        DB::table('trthreaddetails')
+            ->where('trthreaddetails.ThreadDetailsID','=',$post_id)
+            ->update(['Post' => $request -> contentPanel]);
+
+        return redirect('/forum/'. $id);
+    }
     public function destroy($id)
     {
 

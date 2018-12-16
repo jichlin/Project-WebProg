@@ -3,7 +3,7 @@
     {{--Source : https://www.w3schools.com/howto/howto_css_search_button.asp--}}
 
         {{--Search Bar--}}
-        <form action="{{url("/search")}}" method="get" role="search" >
+        <form action="{{url("/forum/search")}}" method="get" role="search" >
             <div class="input-group">
                 <input type="text" class="form-control" name="searching" placeholder="Seach Forum by Titile, and Category Name" value="{{$search}}">
                 <span class="input-group-btn">

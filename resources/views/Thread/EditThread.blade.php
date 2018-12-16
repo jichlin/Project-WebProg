@@ -8,7 +8,7 @@
                 <div>Forum Data</div>
             </div>
             <div class="panel-body">
-                <form action="{{ url('/update/'. $thread -> ThreadID) }}" method="POST" role="addForum">
+                <form action="{{ url('/forum/update/'. $thread -> ThreadID) }}" method="POST" role="addForum">
                     {{ csrf_field() }}
                     {{method_field('PUT')}}
                     <div class="form-group">
