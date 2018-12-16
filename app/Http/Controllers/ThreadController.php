@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\ThreadDetail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Thread;
@@ -61,9 +63,28 @@ class ThreadController extends Controller
         return redirect('/forum');
     }
 
-    public function show($id)
+    public function detailThread($id)
     {
-        //
+
+        $threadsData = DB::table('trthread')
+            ->join('trthreaddetails','trthreaddetails.ThreadID','=','trthread.ThreadID')
+            ->join('msuser','msuser.UserID','=','trthreaddetails.PostedBy')
+            ->join('msroles','msroles.RolesID','=','msuser.RolesID')
+            ->select('msuser.*','msroles.*','trthreaddetails.*')
+            ->where('trthreaddetails.ThreadID','=',$id)
+            ->paginate(5);
+
+        $threadHeading = DB::table('trthread')
+            ->join('mscategory','mscategory.CategoryID','=','trthread.CategoryID')
+            ->join('msuser','msuser.UserID','=','trthread.CreatedBy')
+            ->select('trthread.*','mscategory.*','msuser.*')
+            ->where('trthread.ThreadID','=',$id)
+            ->first();
+
+        // print_r($threadHeading);
+        // print_r($threadsData);
+
+        return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData]);
     }
 
     public function edit($id)

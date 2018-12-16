@@ -22,21 +22,21 @@
 
         {{--Bagian menampilkan index--}}
         @foreach($threads as $thread)
-            <a href="">
+            <a href="{{url("/forum/". $thread -> ThreadID)}}">
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-10 " style="padding-left: 0; font-size: x-large">
+                                    <div class="col-md-9 " style="padding-left: 0; font-size: x-large">
                                         <b>{{$thread -> ThreadName}}</b>
                                     </div>
                                     @if($thread -> isClosed == 1)
-                                        <div class="col-md-1 text-right">
+                                        <div class="col-md-2 text-right" style="padding-right: 0">
                                             <span class="text-right label label-success">Open</span>
                                         </div>
                                     @elseif($thread -> isClosed == 0)
-                                        <div class="col-md-1 text-right">
+                                        <div class="col-md-2 text-right">
                                             <span class="text-right label-danger label">Closed</span>
                                         </div>
                                     @endif

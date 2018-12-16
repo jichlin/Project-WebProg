@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model implements Authenticatable
 {
-
-
-    protected $table="msUser";
+    protected $table='msuser';
     protected $primaryKey = 'UserID';
     public $timestamps = false;
 
@@ -47,5 +45,9 @@ class User extends Model implements Authenticatable
 
     public function role(){
         return $this->hasOne('App\Roles','RolesID','RolesID');
+    }
+
+    public function threadDetail(){
+        return $this->hasMany('App\ThreadDetail','PostedBy','UserID');
     }
 }

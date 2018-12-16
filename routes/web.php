@@ -14,6 +14,7 @@ Route::get('/logout','LoginController@logout');
 
 //Buat Forum
 Route::get('/forum','ThreadController@mainForum');
+Route::get('/forum/{id}','ThreadController@detailThread');
 Route::get('/create','ThreadController@createAdd');
 Route::post('/store','ThreadController@store');
 Route::get('/edit/{id}','ThreadController@edit');
