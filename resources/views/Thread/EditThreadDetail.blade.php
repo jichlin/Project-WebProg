@@ -6,22 +6,24 @@
         <div class="panel panel-default">
             {{--Untuk Panel Yang besar dan yang heading--}}
             <div class="panel-heading">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 " style="padding-left: 0; font-size: x-large">
-                            <b>{{$threadHeading -> ThreadName}}</b>
-                        </div>
+                <table style="width: 100%">
+                    <tr>
+                        <th class="text-left">
+                            <div style="font-size: x-large">
+                                {{$threadHeading -> ThreadName}}
+                            </div>
+                        </th>
                         @if($threadHeading -> isClosed == 1)
-                            <div class="col-md-1 text-right">
+                            <th class="text-right">
                                 <span class="text-right label label-success">Open</span>
-                            </div>
+                            </th>
                         @elseif($threadHeading -> isClosed == 0)
-                            <div class="col-md-2 text-right">
+                            <th class="text-right">
                                 <span class="text-right label-danger label">Closed</span>
-                            </div>
+                            </th>
                         @endif
-                    </div>
-                </div>
+                    </tr>
+                </table>
                 <div>Category: {{$threadHeading -> CategoryName}}</div>
                 <div>Owner : {{$threadHeading -> UserName}}</div>
                 <div>Posted at: {{$threadHeading -> CreatedDate}}</div>
@@ -29,7 +31,7 @@
                 <div>Description :</div>
                 <div>{{$threadHeading -> ThreadDescription}}</div>
                 <br>
-                <form action="{{url("/search")}}" method="get" role="search" >
+                <form action="{{url('/forum/'. $threadHeading -> ThreadID.'/search')}}" method="get" role="search" >
                     <div class="input-group">
                         <input type="text" class="form-control" name="searching" placeholder="Search This Forum's Thread By Content or Owner">
                         <span class="input-group-btn">
@@ -51,37 +53,41 @@
                         <div class="panel-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div style="padding-left: 0" class="col-md-9">
-                                                <b style="color: cornflowerblue">{{$threadDetail -> UserName}}</b><br>
-                                                <div>{{$threadDetail -> RolesName}}</div>
-                                            </div>
-                                            <div class="col-md-2 text-right">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        @if(session('username') == $threadDetail -> UserName)
-                                                            <form class="col-md-1" action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit">
-                                                                {{ csrf_field() }}
-                                                                <button type="submit" class="btn btn-warning">
-                                                                    <span class="glyphicon glyphicon-edit"></span>
-                                                                    Edit
-                                                                </button>
-                                                            </form>
-                                                            <form class="col-md-1" style="padding-left: 0" action="{{url('forum/'. $threadHeading -> ThreadID .'/delete/'. $threadDetail -> ThreadDetailsID)}}" method="POST" role="delete">
-                                                                {{csrf_field()}}
-                                                                {{method_field('DELETE')}}
-                                                                <button type="submit" class="btn btn-danger">
-                                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                                    Delete
-                                                                </button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
+                                    <table style="width: 100%" class="table-responsive-md">
+                                        <tr>
+                                            <th class="text-left">
+                                                <label style="font-size: x-large; margin: 0">
+                                                    {{$threadDetail -> UserName}}
+                                                </label>
+                                                <div style="font-weight: lighter">
+                                                    {{$threadDetail -> RolesName}}
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </th>
+                                            @if(session()->exists('username') == true)
+                                                @if(session('username') == $threadDetail -> UserName)
+                                                    <th class="text-right" style="width: 0.1%">
+                                                        <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit" style="width: fit-content">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" class="btn btn-warning">
+                                                                <span class="glyphicon glyphicon-edit"></span>
+                                                                Edit
+                                                            </button>
+                                                        </form>
+                                                    </th>
+                                                    <th class="text-right" style="width: 0.1%">
+                                                        <form action="{{url('forum/'. $threadHeading -> ThreadID .'/delete/'. $threadDetail -> ThreadDetailsID)}}" method="POST" role="delete" style="width: fit-content">
+                                                            {{csrf_field()}}
+                                                            {{method_field('DELETE')}}
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <span class="glyphicon glyphicon-remove"></span>
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </th>
+                                                @endif
+                                            @endif
+                                        </tr>
+                                    </table>
                                     <div>Posted at: {{$threadDetail -> PostedDate}}</div>
                                 </div>
                                 <div class="panel-body">
@@ -117,6 +123,9 @@
                     <div class="form-group">
                         <label for="contentPanel">Content</label>
                         <textarea class="form-control" name="contentPanel">{{$threadEdited -> Post}}</textarea>
+                        @if($errors->has('contentPanel'))
+                            <span>The content field is required.</span>
+                        @endif
                     </div>
                 </div>
                 <div class="panel-heading">

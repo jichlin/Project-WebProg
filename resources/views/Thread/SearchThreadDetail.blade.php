@@ -33,7 +33,7 @@
                 <br>
                 <form action="{{url('/forum/'. $threadHeading -> ThreadID.'/search')}}" method="get" role="search" >
                     <div class="input-group">
-                        <input type="text" class="form-control" name="searching" placeholder="Search This Forum's Thread By Content or Owner">
+                        <input type="text" class="form-control" name="searching" placeholder="Search This Forum's Thread By Content or Owner" value="{{$search}}">
                         <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" style="color: white; background: #2196F3">
                         <span class="glyphicon glyphicon-search fa fa-search"></span>
@@ -41,7 +41,9 @@
                         </span>
                     </div>
                 </form>
-                <br>
+                <div style="margin-top: 1%;margin-bottom: 1%">
+                    Thread Search Result with '<b>{{$search}}</b>' Keyword(s):
+                </div>
             </div>
             {{--Untuk Panel Yang besar dan yang heading--}}
 
@@ -104,8 +106,8 @@
                         </ul>
                     </nav>
                 @else
-                    <div>
-                        This forum doesn't have any thread
+                    <div class="text-left">
+                        <h4>No Thread Currently Exist</h4>
                     </div>
                 @endif
             </div>
@@ -114,7 +116,7 @@
 
     @if(session()->exists('username') == true)
         <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $users -> UserID)}}" method="POST" role="post">
-        {{csrf_field()}}
+            {{csrf_field()}}
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">

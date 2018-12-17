@@ -6,7 +6,7 @@
         {{--Search Bar--}}
         <form action="{{url("/forum/search")}}" method="get" role="search" >
             <div class="input-group">
-                <input type="text" class="form-control" name="searching" placeholder="Seach Forum by Titile, and Category Name">
+                <input type="text" class="form-control" name="searching" placeholder="Search Forum by Title, and Category Name">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" style="color: white; background: #2196F3">
                         <span class="glyphicon glyphicon-search fa fa-search"></span>
@@ -26,26 +26,24 @@
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-9 " style="padding-left: 0; font-size: x-large">
-                                        <b>{{$thread -> ThreadName}}</b>
-                                    </div>
+                            <table style="width: 100%">
+                                <tr>
+                                    <th class="text-left">{{$thread -> ThreadName}}</th>
                                     @if($thread -> isClosed == 1)
-                                        <div class="col-md-2 text-right" style="padding-right: 0">
+                                        <th class="text-right">
                                             <span class="text-right label label-success">Open</span>
-                                        </div>
+                                        </th>
                                     @elseif($thread -> isClosed == 0)
-                                        <div class="col-md-2 text-right">
+                                        <th class="text-right">
                                             <span class="text-right label-danger label">Closed</span>
-                                        </div>
+                                        </th>
                                     @endif
-                                </div>
-                            </div>
+                                </tr>
+                            </table>
                             <div>Category: {{$thread -> category -> CategoryName}}</div>
                             <div>Posted at: {{$thread -> CreatedDate}}</div>
                         </div>
-                        <div class="panel-body">{{$thread -> ThreadDescription}}</div>
+                        <div class="panel-body" style="color: black">{{$thread -> ThreadDescription}}</div>
                     </div>
                 </div>
             </a>
