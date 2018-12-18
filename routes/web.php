@@ -41,3 +41,10 @@ Route::put('/modifyPop','UserController@modifyPop');
 
 //Buat delete request
 Route::delete('/deleteUser/{id}','UserController@remove');
+
+//CATEGORY
+Route::get('/master/category','CategoryController@index');
+Route::post('/master/category/add','CategoryController@add');
+Route::delete('/deleteCategory/{id}','CategoryController@remove');
+Route::get('/editCategory/{id}','CategoryController@edit');
+Route::put('/master/category/update/{id}','CategoryController@update');

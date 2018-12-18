@@ -11,7 +11,7 @@
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item white-text" href="{{url('/master/user')}}">User</a>
-                            <a class="dropdown-item white-text" href="#">Category</a>
+                            <a class="dropdown-item white-text" href="{{url('/master/category')}}">Category</a>
                             <a class="dropdown-item white-text" href="#">Thread</a>
                         </div>
                     </li>

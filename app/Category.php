@@ -8,6 +8,8 @@ class Category extends Model
 {
     //
     protected $table= 'mscategory';
+    protected $primaryKey = 'CategoryID';
+    public $timestamps = false;
 
     public function Thread()
     {
