@@ -4,7 +4,6 @@ Route::get('/login','UserController@login');
 Route::get('/','UserController@login');
 Route::get('/register','UserController@register');
 Route::get('/logout','UserController@logout');
-Route::get('/search','ThreadController@searchMainForum');
 
 //Bagian buat login / register
 Route::get('/login','LoginController@login');
@@ -13,11 +12,18 @@ Route::get('/register','RegisterController@register');
 Route::get('/logout','LoginController@logout');
 
 //Buat Forum
-Route::get('/forum','ThreadController@mainForum');
-Route::get('/create','ThreadController@createAdd');
-Route::post('/store','ThreadController@store');
-Route::get('/edit/{id}','ThreadController@edit');
-Route::put('/update/{id}','ThreadController@update');
+Route::get('/forum/{id}/search','ThreadController@searchForumDetail');
+Route::get('/forum/search','ThreadController@searchMainForum'); // search main thread
+Route::get('/forum','ThreadController@mainForum'); // menampilkan main thread
+Route::get('/forum/create','ThreadController@createAdd'); // menambah thread
+Route::get('/forum/{id}/edit/{post_id}','ThreadController@editThread'); // edit post di dalam suatu thread detail
+Route::post('/forum/{id}/store/{post_id}','ThreadController@storeThread'); // menambah post di dalam suatu thread detail
+Route::put('/forum/{id}/update/{post_id}','ThreadController@updateThread'); // mengupdate post didalam suatu thread detail
+Route::delete('/forum/{id}/delete/{post_id}','ThreadController@destroyThreadDetails'); // mendelete post didalam suatu thread detail
+Route::get('/forum/{id}','ThreadController@detailThread'); // menampilkan thread detail suatu thread
+Route::get('/forum/edit/{id}','ThreadController@edit'); // edit thread
+Route::post('/forum/store','ThreadController@store'); // menambah thread
+Route::put('/forum/update/{id}','ThreadController@update'); // edit thread
 
 
 //Buat Thread

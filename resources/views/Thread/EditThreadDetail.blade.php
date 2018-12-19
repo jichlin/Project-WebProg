@@ -111,34 +111,32 @@
             </div>
         </div>
     </div>
-
-    @if(session()->exists('username') == true)
-        <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $users -> UserID)}}" method="POST" role="post">
+    <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/update/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
         {{csrf_field()}}
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Post New Thread
+        {{method_field('PUT')}}
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit Current Thread
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="contentPanel">Content</label>
+                        <textarea class="form-control" name="contentPanel">{{$threadEdited -> Post}}</textarea>
+                        @if($errors->has('contentPanel'))
+                            <span>The content field is required.</span>
+                        @endif
                     </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label for="contentPanel">Content</label>
-                            <textarea class="form-control" name="contentPanel"></textarea>
-                            @if($errors->has('contentPanel'))
-                                <span>The content field is required.</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="panel-heading">
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-send"></span>
-                                Post
-                            </button>
-                        </div>
+                </div>
+                <div class="panel-heading">
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-send"></span>
+                            Update
+                        </button>
                     </div>
                 </div>
             </div>
-        </form>
-    @endif
+        </div>
+    </form>
 @endsection

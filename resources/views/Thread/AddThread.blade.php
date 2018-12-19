@@ -8,7 +8,7 @@
                 <div>Forum Data</div>
             </div>
             <div class="panel-body">
-                <form action="{{ url('/store') }}" method="POST" role="addForum">
+                <form action="{{ url('/forum/store') }}" method="POST" role="addForum">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label for="name"><span class="red-text">*</span>Name</label>
