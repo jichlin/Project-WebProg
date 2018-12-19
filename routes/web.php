@@ -35,3 +35,10 @@ Route::put('/modifyPop','UserController@modifyPop');
 Route::delete('/deleteUser/{id}','UserController@remove');
 Route::delete('/deleteMessage/{id}','InboxController@deleteMessage');
 
+//Buat Category
+Route::get('/master/category','CategoryController@index');
+Route::post('/master/category/add','CategoryController@add');
+Route::delete('/deleteCategory/{id}','CategoryController@remove');
+Route::get('/editCategory/{id}','CategoryController@edit');
+Route::put('/master/category/update/{id}','CategoryController@update');
+
