@@ -47,6 +47,10 @@ class User extends Model implements Authenticatable
         return $this->hasOne('App\Roles','RolesID','RolesID');
     }
 
+    public function  messages(){
+        return $this->hasMany('App\Message','SentBy','UserID');
+    }
+
     public function threadDetail(){
         return $this->hasMany('App\ThreadDetail','PostedBy','UserID');
     }

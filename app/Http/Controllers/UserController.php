@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
@@ -126,6 +127,7 @@ class UserController extends Controller
         $user = User::where('UserName',$username)->first();
         return view('User.UserProfile',compact('user'));
     }
+
 
     public function remove($id){
          $user = User::where('UserID',$id);

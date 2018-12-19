@@ -1,15 +1,11 @@
 <?php
 
-Route::get('/login','UserController@login');
-Route::get('/','UserController@login');
-Route::get('/register','UserController@register');
-Route::get('/logout','UserController@logout');
-
 //Bagian buat login / register
 Route::get('/login','LoginController@login');
-Route::get('/','LoginController@login');
+Route::get('/','ThreadController@mainForum');
 Route::get('/register','RegisterController@register');
 Route::get('/logout','LoginController@logout');
+
 
 //Buat Forum
 Route::get('/forum/{id}/search','ThreadController@searchForumDetail');
@@ -25,25 +21,17 @@ Route::get('/forum/edit/{id}','ThreadController@edit'); // edit thread
 Route::post('/forum/store','ThreadController@store'); // menambah thread
 Route::put('/forum/update/{id}','ThreadController@update'); // edit thread
 
-
-//Buat Thread
-
 //Buat User
-//Buat add , update data user
 Route::get('/userform/{from}/{id?}','UserController@addeditUserData');
 Route::get('/profile/{username}','UserController@profile');
 Route::get('/master/user','UserController@index');
-
-//Buat Post Request
+Route::get('/inbox','InboxController@index');
 Route::post('/loginUser','LoginController@loginUser');
 Route::post('/registerUser','RegisterController@registerUser');
-
+Route::post('/sendMessage','InboxController@sendMessage');
 Route::post('/newUserData','UserController@postUserData');
-
-//Buat Put Request
 Route::put('/updateUserData','UserController@putUserData');
 Route::put('/modifyPop','UserController@modifyPop');
-
-
-//Buat delete request
 Route::delete('/deleteUser/{id}','UserController@remove');
+Route::delete('/deleteMessage/{id}','InboxController@deleteMessage');
+

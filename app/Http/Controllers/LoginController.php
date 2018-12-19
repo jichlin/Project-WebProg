@@ -27,16 +27,16 @@ class LoginController extends Controller
 
         $login = Auth::attempt(['useremail'=>$email,'password'=>$password],$rememberMe);
 
-        $user = User::where('UserEmail',$email)->first();
-
         if($login == false){
             $validator = Validator::make($request->all(),['email' => 'required']);
             $validator->errors()->add('match', 'Username and password does not match or exist!');
             return redirect('/login')->withErrors($validator)->withInput();
         }
         else{
+            $user = User::where('UserEmail',$email)->first();
             session(['username'=> $user->UserName]);
             session(['userroles' => $user->RolesID]);
+            session(['userid' => $user->UserID]);
             if($user->UserPicture != '') {
                 session(['image' => $user->UserPicture]);
             }
@@ -49,6 +49,7 @@ class LoginController extends Controller
 
     function logout(){
         Auth::logout();
+        session()->flush();
         return redirect('/login');
     }
 }

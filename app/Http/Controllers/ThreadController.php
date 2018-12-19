@@ -144,7 +144,8 @@ class ThreadController extends Controller
                 ->where('msuser.UserName','=', session('username'))
                 ->first();
 
-            return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData,'users' => $user]);
+            return view('Thread.ThreadDetail',
+                ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData,'users' => $user]);
         }
         else return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData]);
     }

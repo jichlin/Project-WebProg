@@ -2,12 +2,12 @@
 @section("content")
     {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+    <div class="card-group">
+        <div class="card">
+            <div class="card-header">
                 <div>Forum Data</div>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                 <form action="{{ url('/forum/store') }}" method="POST" role="addForum">
                     {{csrf_field()}}
                     <div class="form-group">

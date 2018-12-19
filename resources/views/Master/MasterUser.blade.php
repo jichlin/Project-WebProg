@@ -1,8 +1,8 @@
 @extends('layout.layout')
 @section('content')
     <div class="card">
-        <div class="card-header" style="display: flex;justify-content: space-between">
-            <span>User Data</span>
+        <div class="card-header d-flex justify-content-between">
+            <div class="text-center"><span>User Data</span></div>
             <a class="btn btn-success" href="{{url('/userform/master/')}}">Add New User</a>
         </div>
         <div class="card-body table-responsive">
@@ -43,14 +43,14 @@
                                 Female
                             @endif
                         </td>
-                        <td style="display: inline-flex;">
+                        <td class="d-flex justify-content-between">
                             <a class="btn btn-secondary" href="{{url('/userform/master/'.$user->UserID)}}">
                                 Edit
                             </a>
                             <form action="{{url('/deleteUser/'.$user->UserID)}}" method="post">
                                 {{csrf_field()}}
                                 {{method_field("DELETE")}}
-                                <button type="submit" class="btn btn-warning">Delete</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                         </tr>

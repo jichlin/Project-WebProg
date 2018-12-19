@@ -9,33 +9,31 @@
                 <input type="text" class="form-control" name="searching" placeholder="Search Forum by Title, and Category Name">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" style="color: white; background: #2196F3">
-                        <span class="glyphicon glyphicon-search fa fa-search"></span>
+                        <span class="glyphicon glyphicon-search fa fa-search">Search</span>
                     </button>
                 </span>
             </div>
         </form>
-        {{--https://justlaravel.com/search-functionality-laravel/ || untuk search bar--}}
         <br>
 
         {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         {{--Bagian menampilkan index--}}
+        <div class="card-deck flex-column">
         @foreach($threads as $thread)
             <a href="{{url("/forum/". $thread -> ThreadID)}}">
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <table style="width: 100%">
                                 <tr>
                                     <th class="text-left">{{$thread -> ThreadName}}</th>
                                     @if($thread -> isClosed == 1)
                                         <th class="text-right">
-                                            <span class="text-right label label-success">Open</span>
+                                            <span class="text-right badge badge-success">Open</span>
                                         </th>
                                     @elseif($thread -> isClosed == 0)
                                         <th class="text-right">
-                                            <span class="text-right label-danger label">Closed</span>
+                                            <span class="text-right badge badge-danger">Closed</span>
                                         </th>
                                     @endif
                                 </tr>
@@ -43,19 +41,14 @@
                             <div>Category: {{$thread -> category -> CategoryName}}</div>
                             <div>Posted at: {{$thread -> CreatedDate}}</div>
                         </div>
-                        <div class="panel-body" style="color: black">{{$thread -> ThreadDescription}}</div>
+                        <div class="card-body" style="color: black">{{$thread -> ThreadDescription}}</div>
                     </div>
-                </div>
             </a>
             <br>
         @endforeach
-
+        </div>
         {{--Pagination--}}
-        <nav aria-label="Page navigation" class="text-center">
-            <ul class="pagination">
-                {{$threads -> links()}}
-            </ul>
-        </nav>
+        {{$threads -> links()}}
         {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
 
     @else

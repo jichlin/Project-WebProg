@@ -20,7 +20,7 @@ class CreateTrThreadDetails extends Migration
             $table->integer('PostedBy')->unsigned();
             $table->date('PostedDate');
             $table->foreign('ThreadID')->references('ThreadID')->on('trThread')->onDelete('cascade');
-            $table->foreign('PostedBy')->references('UserID')->on('msUser');
+            $table->foreign('PostedBy')->references('UserID')->on('msUser')->onDelete('cascade');
         });
     }
 

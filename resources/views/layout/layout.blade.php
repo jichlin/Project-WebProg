@@ -22,7 +22,6 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-
         function getCurrentTime(){
             let a = new Date();
             let date = a.getDate();

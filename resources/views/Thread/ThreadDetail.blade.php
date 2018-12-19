@@ -1,11 +1,12 @@
 @extends("layout.layout")
 @section("content")
     {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <div class="panel-group">
-        <div class="panel panel-default">
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
+
+    <div class="card-deck">
+        <div class="card">
             {{--Untuk Panel Yang besar dan yang heading--}}
-            <div class="panel-heading">
+            <div class="card-header">
                 <table style="width: 100%">
                     <tr>
                         <th class="text-left">
@@ -15,11 +16,11 @@
                         </th>
                         @if($threadHeading -> isClosed == 1)
                             <th class="text-right">
-                                <span class="text-right label label-success">Open</span>
+                                <span class="text-right badge badge-success">Open</span>
                             </th>
                         @elseif($threadHeading -> isClosed == 0)
                             <th class="text-right">
-                                <span class="text-right label-danger label">Closed</span>
+                                <span class="text-right badge badge-danger">Closed</span>
                             </th>
                         @endif
                     </tr>
@@ -31,12 +32,13 @@
                 <div>Description :</div>
                 <div>{{$threadHeading -> ThreadDescription}}</div>
                 <br>
-                <form action="{{url('/forum/'. $threadHeading -> ThreadID.'/search')}}" method="get" role="search" >
+                <form action="{{url('/forum/'. $threadHeading -> ThreadID.'/search')}}" method="get" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="searching" placeholder="Search This Forum's Thread By Content or Owner">
+                        <input type="text" class="form-control" name="searching"
+                               placeholder="Search This Forum's Thread By Content or Owner">
                         <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" style="color: white; background: #2196F3">
-                        <span class="glyphicon glyphicon-search fa fa-search"></span>
+                        <span class="glyphicon glyphicon-search fa fa-search">Search</span>
                     </button>
                         </span>
                     </div>
@@ -46,13 +48,13 @@
             {{--Untuk Panel Yang besar dan yang heading--}}
 
             {{--Untuk Panel yang besar dan yang body--}}
-            <div class="panel-body">
+            <div class="card-body">
                 {{--Panel untuk thread detail--}}
                 @if(count($threadsData) > 0)
-                    @foreach($threadsData as $threadDetail)
-                        <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
+                    <div class="card-deck flex-column">
+                        @foreach($threadsData as $threadDetail)
+                            <div class="card m-2">
+                                <div class="card-header">
                                     <table style="width: 100%" class="table-responsive-md">
                                         <tr>
                                             <th class="text-left">
@@ -66,7 +68,8 @@
                                             @if(session()->exists('username') == true)
                                                 @if(session('username') == $threadDetail -> UserName)
                                                     <th class="text-right" style="width: 0.1%">
-                                                        <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit" style="width: fit-content">
+                                                        <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}"
+                                                              method="get" role="edit" style="width: fit-content">
                                                             {{ csrf_field() }}
                                                             <button type="submit" class="btn btn-warning">
                                                                 <span class="glyphicon glyphicon-edit"></span>
@@ -75,7 +78,8 @@
                                                         </form>
                                                     </th>
                                                     <th class="text-right" style="width: 0.1%">
-                                                        <form action="{{url('forum/'. $threadHeading -> ThreadID .'/delete/'. $threadDetail -> ThreadDetailsID)}}" method="POST" role="delete" style="width: fit-content">
+                                                        <form action="{{url('forum/'. $threadHeading -> ThreadID .'/delete/'. $threadDetail -> ThreadDetailsID)}}"
+                                                              method="POST" role="delete" style="width: fit-content">
                                                             {{csrf_field()}}
                                                             {{method_field('DELETE')}}
                                                             <button type="submit" class="btn btn-danger">
@@ -90,19 +94,14 @@
                                     </table>
                                     <div>Posted at: {{$threadDetail -> PostedDate}}</div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     {{$threadDetail -> Post}}
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                     {{--Panel untuk thread detail--}}
-
-                    <nav aria-label="Page navigation" class="text-center">
-                        <ul class="pagination" style="margin: 0">
-                            {{$threadsData -> links()}}
-                        </ul>
-                    </nav>
+                    {{$threadsData -> links()}}
                 @else
                     <div>
                         This forum doesn't have any thread
@@ -111,16 +110,20 @@
             </div>
         </div>
     </div>
+    <div class="m-2">
+
+    </div>
 
     @if(session()->exists('username') == true)
-        <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $users -> UserID)}}" method="POST" role="post">
-        {{csrf_field()}}
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+        <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $users -> UserID)}}" method="POST"
+              role="post">
+            {{csrf_field()}}
+            <div class="card-deck">
+                <div class="card">
+                    <div class="card-header">
                         Post New Thread
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="form-group">
                             <label for="contentPanel">Content</label>
                             <textarea class="form-control" name="contentPanel"></textarea>
@@ -129,7 +132,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="panel-heading">
+                    <div class="card-header">
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-send"></span>

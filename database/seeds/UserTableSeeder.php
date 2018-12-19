@@ -42,6 +42,66 @@ class UserTableSeeder extends Seeder
                 'remember_token' => ''
             ]);
 
+        DB::table('msuser')->insert([
+            'rolesID' => 2,
+            'username' => 'user2',
+            'useremail' => 'user2@gmail.com',
+            'userpassword' => Hash::make('user'),
+            'userphone' => '1',
+            'useraddress' => 'test',
+            'userDOB' =>'1998/10/30',
+            'userPicture' => '',
+            'usernegativepop' => 0,
+            'userpositivepop' => 0,
+            'usergender' => 'U',
+            'remember_token' => ''
+        ]);
+
+        DB::table('msuser')->insert([
+            'rolesID' => 2,
+            'username' => 'user3',
+            'useremail' => 'user3@gmail.com',
+            'userpassword' => Hash::make('user'),
+            'userphone' => '1',
+            'useraddress' => 'test',
+            'userDOB' =>'1998/10/30',
+            'userPicture' => '',
+            'usernegativepop' => 0,
+            'userpositivepop' => 0,
+            'usergender' => 'U',
+            'remember_token' => ''
+        ]);
+
+        DB::table('msuser')->insert([
+            'rolesID' => 2,
+            'username' => 'user4',
+            'useremail' => 'user4@gmail.com',
+            'userpassword' => Hash::make('user'),
+            'userphone' => '1',
+            'useraddress' => 'test',
+            'userDOB' =>'1998/10/30',
+            'userPicture' => '',
+            'usernegativepop' => 0,
+            'userpositivepop' => 0,
+            'usergender' => 'U',
+            'remember_token' => ''
+        ]);
+
+        DB::table('msuser')->insert([
+            'rolesID' => 2,
+            'username' => 'user5',
+            'useremail' => 'user5@gmail.com',
+            'userpassword' => Hash::make('user'),
+            'userphone' => '1',
+            'useraddress' => 'test',
+            'userDOB' =>'1998/10/30',
+            'userPicture' => '',
+            'usernegativepop' => 0,
+            'userpositivepop' => 0,
+            'usergender' => 'U',
+            'remember_token' => ''
+        ]);
+
         //
     }
 }

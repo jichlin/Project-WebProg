@@ -1,11 +1,11 @@
 @extends("layout.layout")
 @section("content")
     {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <div class="panel-group">
-        <div class="panel panel-default">
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
+    <div class="card-group">
+        <div class="card">
             {{--Untuk Panel Yang besar dan yang heading--}}
-            <div class="panel-heading">
+            <div class="card-header">
                 <table style="width: 100%">
                     <tr>
                         <th class="text-left">
@@ -36,7 +36,7 @@
                         <input type="text" class="form-control" name="searching" placeholder="Search This Forum's Thread By Content or Owner">
                         <span class="input-group-btn">
                     <button type="submit" class="btn btn-default" style="color: white; background: #2196F3">
-                        <span class="glyphicon glyphicon-search fa fa-search"></span>
+                        <span class="glyphicon glyphicon-search fa fa-search">Search</span>
                     </button>
                         </span>
                     </div>
@@ -46,13 +46,13 @@
             {{--Untuk Panel Yang besar dan yang heading--}}
 
             {{--Untuk Panel yang besar dan yang body--}}
-            <div class="panel-body">
+            <div class="card-body">
                 {{--Panel untuk thread detail--}}
                 @if(count($threadsData) > 0)
+                    <div class="card-deck flex-column">
                     @foreach($threadsData as $threadDetail)
-                        <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
+                            <div class="card ml-2">
+                                <div class="card-header">
                                     <table style="width: 100%" class="table-responsive-md">
                                         <tr>
                                             <th class="text-left">
@@ -90,19 +90,15 @@
                                     </table>
                                     <div>Posted at: {{$threadDetail -> PostedDate}}</div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     {{$threadDetail -> Post}}
                                 </div>
                             </div>
-                        </div>
                     @endforeach
-                    {{--Panel untuk thread detail--}}
+                    </div>
+                        {{--Panel untuk thread detail--}}
 
-                    <nav aria-label="Page navigation" class="text-center">
-                        <ul class="pagination" style="margin: 0">
-                            {{$threadsData -> links()}}
-                        </ul>
-                    </nav>
+                    {{$threadsData -> links()}}
                 @else
                     <div>
                         This forum doesn't have any thread
@@ -111,15 +107,16 @@
             </div>
         </div>
     </div>
+
     <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/update/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
         {{csrf_field()}}
         {{method_field('PUT')}}
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-header">
                     Edit Current Thread
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="form-group">
                         <label for="contentPanel">Content</label>
                         <textarea class="form-control" name="contentPanel">{{$threadEdited -> Post}}</textarea>
@@ -128,7 +125,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="panel-heading">
+                <div class="card-header">
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-send"></span>
