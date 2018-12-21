@@ -100,7 +100,7 @@
 
                 reader.onload = function(e) {
                     $('#profilePicture').attr('src', e.target.result);
-                }
+                };
 
                 reader.readAsDataURL(input.files[0]);
             }
@@ -111,17 +111,17 @@
         });
 
         $(document).ready(function(){
-            var a = '{{old('gender')}}'
-            if(a != ''){
-                if(a == 'M'){
+            let a = '{{old('gender')}}';
+            if(a !== ''){
+                if(a === 'M'){
                     $('#rbMale').prop('checked','checked');
                 }
                 else{
                     $('#rbFemale').prop('checked','checked');
                 }
             }
-            var b ='{{old('address')}}'
-            if(b != ''){
+            let b ='{{old('address')}}';
+            if(b !== ''){
                 $('textarea').val(b);
             }
         });
