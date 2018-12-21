@@ -13,7 +13,8 @@ class InboxController extends Controller
 
     public function index()
     {
-        $messages = DB::table('trmessage')->join('msuser', 'userid', 'sentby')->where('sentto', session('userid'))->get();
+        $messages = DB::table('trmessage')->join('msuser', 'userid', 'sentby')->
+        where('sentto', session('userid'))->paginate(10);
         return view('User.UserInbox')->with(compact('messages'));
     }
 

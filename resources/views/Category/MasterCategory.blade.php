@@ -35,7 +35,7 @@
                     <tr>
                         <td>{{$category->CategoryID}}</td>
                         <td>{{$category->CategoryName}}</td>
-                        <td style="display: inline-flex;">
+                        <td class="d-flex justify-content-around">
                             {{csrf_field()}}
                             <a class="btn btn-secondary" href="{{url('/editCategory/'.$category->CategoryID)}}">
                                 Edit

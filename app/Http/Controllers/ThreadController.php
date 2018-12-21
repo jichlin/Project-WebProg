@@ -12,11 +12,42 @@ use App\Thread;
 
 class ThreadController extends Controller
 {
+    public function masterForum(){
+        $threads = DB::table('trthread')
+            ->join('mscategory','mscategory.CategoryID','=','trthread.CategoryID')
+            ->join('msuser','msuser.UserID','=','trthread.CreatedBy')
+            ->select('trthread.*','mscategory.CategoryName','msuser.UserName')->get();
+        return view('Master.MasterForum')->with(compact('threads'));
+    }
+
+    public function closeForum($from,$id){
+        $thread = Thread::find($id);
+        $thread->isClosed = 0;
+        $thread->update();
+        if($from == "myForum"){
+            return redirect('/myforum');
+        }
+        else {
+            return redirect('/master/forum');
+        }
+    }
+
+    public function deleteForum($id){
+        $thread = Thread::find($id);
+        $thread->delete();
+        return redirect('/master/forum');
+    }
+
 
     public function mainForum(){
         $threads = Thread::with('category')->paginate(5);
 
         return view('Thread.index')->with(compact('threads'));
+    }
+
+    public function myForum(){
+        $threads = Thread::where('CreatedBy',session('userid'))->paginate(5);
+        return view('User.UserThread')->with(compact('threads'));
     }
 
     public function searchMainForum(Request $request){
@@ -150,11 +181,11 @@ class ThreadController extends Controller
         else return view('Thread.ThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData]);
     }
 
-    public function edit($id)
+    public function edit($from,$id)
     {
         $thread = Thread::find($id);
         $categories = Category::all();
-        return view('Thread.EditThread')->with(compact('thread','categories'));
+        return view('Thread.EditThread')->with(compact('thread','categories','from'));
     }
 
     public function editThread($id, $post_id){
@@ -181,8 +212,9 @@ class ThreadController extends Controller
         return view('Thread.EditThreadDetail', ['threadHeading'=>$threadHeading,'threadsData'=>$threadsData,'threadEdited'=>$threadEdited]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request , $id)
     {
+        $from = $request->from;
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'category' => 'required',
@@ -203,7 +235,12 @@ class ThreadController extends Controller
         $thread -> ThreadDescription = $request -> description;
 
         $thread -> save();
-        return redirect('/forum');
+        if($from == "home") {
+            return redirect('/forum');
+        }
+        else{
+            return redirect('/myforum');
+        }
     }
 
     public function updateThread(Request $request, $id, $post_id)

@@ -15,11 +15,11 @@
                         </th>
                         @if($threadHeading -> isClosed == 1)
                             <th class="text-right">
-                                <span class="text-right label label-success">Open</span>
+                                <span class="text-right badge badge-success">Open</span>
                             </th>
                         @elseif($threadHeading -> isClosed == 0)
                             <th class="text-right">
-                                <span class="text-right label-danger label">Closed</span>
+                                <span class="text-right badge badge-danger">Closed</span>
                             </th>
                         @endif
                     </tr>

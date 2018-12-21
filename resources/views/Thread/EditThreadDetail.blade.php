@@ -15,11 +15,11 @@
                         </th>
                         @if($threadHeading -> isClosed == 1)
                             <th class="text-right">
-                                <span class="text-right label label-success">Open</span>
+                                <span class="text-right badge badge-success">Open</span>
                             </th>
                         @elseif($threadHeading -> isClosed == 0)
                             <th class="text-right">
-                                <span class="text-right label-danger label">Closed</span>
+                                <span class="text-right badge badge-danger">Closed</span>
                             </th>
                         @endif
                     </tr>
@@ -51,7 +51,7 @@
                 @if(count($threadsData) > 0)
                     <div class="card-deck flex-column">
                     @foreach($threadsData as $threadDetail)
-                            <div class="card ml-2">
+                            <div class="card m-2">
                                 <div class="card-header">
                                     <table style="width: 100%" class="table-responsive-md">
                                         <tr>
@@ -107,6 +107,8 @@
             </div>
         </div>
     </div>
+
+    <div class="m-2"></div>
 
     <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/update/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
         {{csrf_field()}}

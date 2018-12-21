@@ -4,10 +4,9 @@
     </div>
 </nav>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark py-sm-1">
-    <a class="navbar-brand" href="#">div Forum</a>
+    <a class="navbar-brand" href="{{url('/forum')}}">div Forum</a>
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item nav-link"><a class="white-text" href="{{url('/forum')}}">dvForum</a></li>
             @if(Auth::check())
                 @if(session('userroles') == '1')
                     <li class="nav-item dropdown">
@@ -18,11 +17,11 @@
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item white-text" href="{{url('/master/user')}}">User</a>
                             <a class="dropdown-item white-text" href="{{url('/master/category')}}">Category</a>
-                            <a class="dropdown-item white-text" href="#">Thread</a>
+                            <a class="dropdown-item white-text" href="{{url('/master/forum')}}">Thread</a>
                         </div>
                     </li>
                 @endif
-                <li class="nav-item nav-link"><a href="#" class="white-text">User Forum</a></li>
+                    <li class="nav-item nav-link"><a class="white-text" href="{{url('/myforum')}}">My Forum</a></li>
             @endif
         </ul>
 

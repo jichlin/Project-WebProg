@@ -11,6 +11,7 @@
                 <form action="{{ url('/forum/update/'. $thread -> ThreadID) }}" method="POST" role="addForum">
                     {{ csrf_field() }}
                     {{method_field('PUT')}}
+                    <input type="hidden" value="{{$from}}" name="from">
                     <div class="form-group">
                         <label for="name"><span class="red-text">*</span>Name</label>
                         <input type="text" class="form-control" name="name" value="{{$thread -> ThreadName}}">
