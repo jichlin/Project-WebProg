@@ -5,14 +5,14 @@
 </nav>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark py-sm-1">
     <a class="navbar-brand" href="{{url('/forum')}}">div Forum</a>
-    <div class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto">
+    <div class="navbar-collapse collapse justify-content-between">
+        <ul class="navbar-nav">
             @if(Auth::check())
                 @if(session('userroles') == '1')
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="white-text">Master</span>
+                            <span style="color:#007bff">Master</span>
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item white-text" href="{{url('/master/user')}}">User</a>
@@ -21,20 +21,17 @@
                         </div>
                     </li>
                 @endif
-                    <li class="nav-item nav-link"><a class="white-text" href="{{url('/myforum')}}">My Forum</a></li>
+                    <li class="nav-item nav-link"><a href="{{url('/myforum')}}">My Forum</a></li>
             @endif
         </ul>
 
-        <ul class="navbar nav">
+        <ul class="navbar nav mr-2">
             @if(Auth::check())
                 <img class="navbarPicture text-center" src="{{Storage::url(session('image'))}}"/>
-                <li class="nav-item nav-link">
-                    <span class="text-center white-text">{{session('username')}}</span>
-                </li>
                 <li class="nav-item dropdown-menu-left">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownUser" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
+                    <span class="white-text caret">{{session('username')}}</span>
                     </a>
                     <div class="dropdown-menu bg-dark" aria-labelledby="dropdownUser">
                         <a class="dropdown-item white-text" href="{{url('/profile/'.session('username'))}}">Profile</a>

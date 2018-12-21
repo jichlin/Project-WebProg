@@ -53,7 +53,8 @@
                 </div>
                 <div class="form-group">
                     <label for="birth">Birthday</label><span class="red-text">*</span>
-                    <input type="date" class="form-control" placeholder="dd-mm-yyyy" id="birthday" name="birthday" >
+                    <input type="date" class="form-control" placeholder="dd-mm-yyyy" id="birthday" name="birthday"
+                           value="{{old('birthday')}}">
                     @if($errors->has('birthday'))
                         <span class="red-text">{{$errors->first('birthday')}}</span>
                     @endif
@@ -73,9 +74,12 @@
                     @if($errors->has('photo'))
                         <span class="red-text">{{$errors->first('photo')}}</span>
                     @endif
+                    <img id="profilePicture"
+                         src="{{Storage::url('profilePicture/default.jpg') }}"
+                         alt="Profile Picture" />
                 </div>
 
-                <div class="form-group text-center">
+                <div class="form-check text-center">
                     <label for="agree" class="checkbox-inline">
                         <input type="checkbox" id="agree" value="yes" name="agree">I Agree to The Terms and Conditions
                     </label>
@@ -90,6 +94,22 @@
     </div>
 
     <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#profilePicture').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#photo").change(function() {
+            readURL(this);
+        });
+
         $(document).ready(function(){
             var a = '{{old('gender')}}'
             if(a != ''){

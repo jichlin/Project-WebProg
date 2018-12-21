@@ -62,9 +62,15 @@
             if(second < 10){
                 second = "0" + second;
             }
-            $('#dateTime').html(day + ", " + date +  "-" + month + "-" + year + ", " + hour + ":" + minute + ":" + second);
+            var time = day + ", " + date +  "-" + month + "-" + year + ", " + hour + ":" + minute + ":" + second;
+
+            $('#dateTime').html(time);
         }
         setInterval(getCurrentTime,1000);
+
+        $('button[type="submit"] input[type="submit"] ').click(function(){
+           $(this).prop('disabled',true);
+        });
 
     })
 </script>

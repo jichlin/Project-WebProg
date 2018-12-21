@@ -24,7 +24,8 @@
                     <input type="checkbox" id="cb" class="form-check-input" name="remember" value="remember">
                     <label for="cb" class="form-check-label">Remember Me</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+
+                <button type="submit" class="btn btn-primary mt-2">Login</button>
             </form>
         </div>
     </div>

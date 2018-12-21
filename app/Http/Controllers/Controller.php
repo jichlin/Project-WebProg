@@ -32,7 +32,7 @@ class Controller extends BaseController
                 'password' => 'required|same:confirmPassword|min:6',
                 'phone' => 'required|numeric',
                 'gender' => 'required',
-                'address' => 'required',
+                'address' => 'required|regex:/^.+ Street$/i',
                 'photo' => 'required|mimes:jpeg,bmp,png,jpg',
                 'birthday' => 'date_format:Y-m-d|olderThan:12',
                 'agree' => 'accepted'
@@ -47,7 +47,7 @@ class Controller extends BaseController
                 'password' => 'required|same:confirmPassword|min:6',
                 'phone' => 'required|numeric',
                 'gender' => 'required',
-                'address' => 'required',
+                'address' => 'required|regex:/^.+ Street$/i',
                 'photo' => 'required|mimes:jpeg,bmp,png,jpg',
                 'birthday' => 'date_format:Y-m-d|olderThan:12',
             ], $messages);
@@ -61,7 +61,7 @@ class Controller extends BaseController
                     'password' => 'required|same:confirmPassword|min:6',
                     'phone' => 'required|numeric',
                     'gender' => 'required',
-                    'address' => 'required',
+                    'address' => 'required|regex:/^.+ Street$/i',
                     'photo' => 'required|mimes:jpeg,bmp,png,jpg',
                     'birthday' => 'date_format:Y-m-d|olderThan:12',
                 ], $messages);
@@ -76,7 +76,7 @@ class Controller extends BaseController
                     'password' => 'required|same:confirmPassword|min:6',
                     'phone' => 'required|numeric',
                     'gender' => 'required',
-                    'address' => 'required',
+                    'address' => 'required|regex:/^.+ Street$/i',
                     'photo' => 'required|mimes:jpeg,bmp,png,jpg',
                     'birthday' => 'date_format:Y-m-d|olderThan:12',
                 ], $messages);

@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('content')
-    <div class="card-deck flex-column">
+    <div class="card-deck flex-column align-items-stretch">
         @foreach($threads as $thread)
             <div class="card m-2">
                 <div class="card-header">

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\ThreadDetail;
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class ThreadController extends Controller
         $thread = Thread::find($id);
         $thread->isClosed = 0;
         $thread->update();
-        if($from == "myForum"){
+        if($from == "myforum"){
             return redirect('/myforum');
         }
         else {
@@ -41,6 +42,21 @@ class ThreadController extends Controller
 
     public function mainForum(){
         $threads = Thread::with('category')->paginate(5);
+
+        if(Auth::check()){
+            $user = User::where('UserEmail',Auth::user()->UserEmail)->first();
+            session(['username'=> $user->UserName]);
+            session(['userroles' => $user->RolesID]);
+            session(['userid' => $user->UserID]);
+            if($user->UserPicture != '') {
+                session(['image' => $user->UserPicture]);
+            }
+            else{
+                session(['image'=> 'profilePicture/default.jpg']);
+            }
+
+        }
+
 
         return view('Thread.index')->with(compact('threads'));
     }

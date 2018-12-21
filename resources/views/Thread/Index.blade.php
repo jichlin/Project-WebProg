@@ -8,6 +8,7 @@
     {{--Source : https://www.w3schools.com/howto/howto_css_search_button.asp--}}
     @if(count($threads) > 0)
 
+
         {{--Search Bar--}}
         <form action="{{url("/forum/search")}}" method="get" role="search">
             <div class="input-group">

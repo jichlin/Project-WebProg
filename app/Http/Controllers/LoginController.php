@@ -19,12 +19,12 @@ class LoginController extends Controller
             return view('login');
         }
     }
+
     public function loginUser(Request $request){
         $email = $request->get('email');
         $password = $request->get('password');
         $remember = $request->get('remember');
         $rememberMe = ($remember == 'remember') ? true : false;
-
         $login = Auth::attempt(['useremail'=>$email,'password'=>$password],$rememberMe);
 
         if($login == false){
