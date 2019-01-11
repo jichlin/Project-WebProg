@@ -14,7 +14,7 @@
 
 <body>
 @include('layout.inc.navbar')
-    <div class="container mt-3">
+    <div class="container mt-3 wrap">
         @yield('content')
     </div>
 @include('layout.inc.footer')

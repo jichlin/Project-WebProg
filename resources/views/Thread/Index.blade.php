@@ -62,6 +62,7 @@
         {{$threads -> links()}}
         {{--Source : https://www.w3schools.com/bootstrap/bootstrap_panels.asp--}}
 
+
     @else
         <div>
             <h3>No Thread Currently Exist</h3>

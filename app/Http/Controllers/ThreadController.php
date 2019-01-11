@@ -17,7 +17,7 @@ class ThreadController extends Controller
         $threads = DB::table('trthread')
             ->join('mscategory','mscategory.CategoryID','=','trthread.CategoryID')
             ->join('msuser','msuser.UserID','=','trthread.CreatedBy')
-            ->select('trthread.*','mscategory.CategoryName','msuser.UserName')->get();
+            ->select('trthread.*','mscategory.CategoryName','msuser.UserName')->paginate(10);
         return view('Master.MasterForum')->with(compact('threads'));
     }
 
@@ -139,7 +139,6 @@ class ThreadController extends Controller
         $thread -> CreatedDate = Carbon::now();
         $thread -> isClosed = 1;
         $thread -> CreatedBy = $getUserID -> UserID;
-
         $thread -> save();
 
         return redirect('/forum');

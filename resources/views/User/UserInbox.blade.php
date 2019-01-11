@@ -25,6 +25,7 @@
                         {{$message->Message}}
                     </div>
                 </div>
+                <div class="mt-2"></div>
             @endforeach
             {{$messages->links()}}
         @else

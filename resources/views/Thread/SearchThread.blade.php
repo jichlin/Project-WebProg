@@ -27,12 +27,13 @@
         {{--Bagian menampilkan index--}}
         <div class="card-deck flex-column">
             @foreach($threads as $thread)
-                <a href="{{url("/forum/". $thread -> ThreadID)}}">
                     <div class="card m-2">
                         <div class="card-header">
                             <table style="width: 100%">
                                 <tr>
-                                    <th class="text-left">{{$thread -> ThreadName}}</th>
+                                    <th class="text-left">
+                                        <a href="{{url("/forum/". $thread -> ThreadID)}}">{{$thread -> ThreadName}}</a>
+                                    </th>
                                     @if($thread -> isClosed == 1)
                                         <th class="text-right">
                                             <span class="text-right badge badge-success">Open</span>
@@ -49,7 +50,6 @@
                         </div>
                         <div class="card-body" style="color: black">{{$thread -> ThreadDescription}}</div>
                     </div>
-                </a>
                 <br>
             @endforeach
         </div>

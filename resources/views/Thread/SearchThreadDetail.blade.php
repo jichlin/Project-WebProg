@@ -59,13 +59,15 @@
                                         <tr>
                                             <th class="text-left">
                                                 <label style="font-size: x-large; margin: 0">
-                                                    {{$threadDetail -> UserName}}
+                                                    <a href="{{url('/profile/'.$threadDetail -> UserName)}}">
+                                                        {{$threadDetail -> UserName}}
+                                                    </a>
                                                 </label>
                                                 <div style="font-weight: lighter">
                                                     {{$threadDetail -> RolesName}}
                                                 </div>
                                             </th>
-                                            @if(session()->exists('username') == true)
+                                            @if(session()->exists('username') == true && $threadHeading -> isClosed != 0)
                                                 @if(session('username') == $threadDetail -> UserName)
                                                     <th class="text-right" style="width: 0.1%">
                                                         <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit" style="width: fit-content">
@@ -112,7 +114,7 @@
 
     <div class="mt-2"></div>
 
-    @if(session()->exists('username') == true)
+    @if(session()->exists('username') == true && $threadHeading->isClosed != 0)
         <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $users -> UserID)}}" method="POST" role="post">
             {{csrf_field()}}
             <div class="card-deck">

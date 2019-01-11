@@ -63,7 +63,7 @@
                                                     {{$threadDetail -> RolesName}}
                                                 </div>
                                             </th>
-                                            @if(session()->exists('username') == true)
+                                            @if(session()->exists('username') == true && $threadHeading -> isClosed != 0)
                                                 @if(session('username') == $threadDetail -> UserName)
                                                     <th class="text-right" style="width: 0.1%">
                                                         <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/edit/'. $threadDetail -> ThreadDetailsID)}}" method="get" role="edit" style="width: fit-content">
@@ -109,7 +109,7 @@
     </div>
 
     <div class="m-2"></div>
-
+    @if(session()->exists('username') == true && $threadHeading ->isClosed == 1)
     <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/update/'. $threadEdited -> ThreadDetailsID)}}" method="POST" role="update">
         {{csrf_field()}}
         {{method_field('PUT')}}
@@ -138,4 +138,5 @@
             </div>
         </div>
     </form>
+    @endif
 @endsection

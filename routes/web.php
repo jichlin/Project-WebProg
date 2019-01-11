@@ -8,11 +8,11 @@ Route::get('/forum', 'ThreadController@mainForum'); // menampilkan main thread
 Route::get('/forum/search', 'ThreadController@searchMainForum'); // search main thread
 Route::post('/loginUser', 'LoginController@loginUser');
 Route::post('/registerUser', 'RegisterController@registerUser');
+Route::get('/forum/{id}/search', 'ThreadController@searchForumDetail');
 
 
 Route::middleware(['needLogin'])->group(function () {
     //Buat Forum
-    Route::get('/forum/{id}/search', 'ThreadController@searchForumDetail');
     Route::get('/forum/create', 'ThreadController@createAdd'); // menambah thread
     Route::get('/forum/{id}/edit/{post_id}', 'ThreadController@editThread'); // edit post di dalam suatu thread detail
     Route::post('/forum/{id}/store/{post_id}', 'ThreadController@storeThread'); // menambah post di dalam suatu thread detail
@@ -36,7 +36,6 @@ Route::middleware(['needLogin'])->group(function () {
     Route::put('/closeForum/{from}/{id}', 'ThreadController@closeForum');
 
     Route::middleware(['adminOnly'])->group(function () {
-
 //Buat MasterUser
         Route::get('/master/user', 'UserController@index');
         Route::delete('/deleteUser/{id}', 'UserController@remove');

@@ -14,7 +14,7 @@
                         <label for="name"><span class="red-text">*</span>Name</label>
                         <input type="text" class="form-control" name="name">
                         @if($errors->has('name'))
-                            <span>{{$errors -> first('name')}}</span>
+                            <span class="red-text">{{$errors -> first('name')}}</span>
                         @endif
                     </div>
                     <div class="form-group">

@@ -5,6 +5,7 @@
             List of Forum
         </div>
         <div class="card-body">
+            @if(count($threads) > 0)
             <table class="table" width="100%">
                 <thead>
                 <tr>
@@ -48,7 +49,10 @@
                 @endforeach
                 </tbody>
             </table>
+            @else
+                <h3>Empty Threads</h3>
+            @endif
         </div>
-
+        {{$threads->links()}}
     </div>
 @endsection

@@ -5,6 +5,7 @@
             <div class="text-center"><span>User Data</span></div>
             <a class="btn btn-success" href="{{url('/userform/master/')}}">Add New User</a>
         </div>
+        @if(count($users) > 0)
         <div class="card-body table-responsive">
             <table class="table" width="100%">
                 <thead class="">
@@ -44,10 +45,18 @@
                             @endif
                         </td>
                         <td class="d-flex justify-content-between">
-                            <a class="btn btn-secondary" href="{{url('/userform/master/'.$user->UserID)}}">
+                            <a class="btn btn-secondary" href="{{url('/userform/master/'.$user->UserID)}}"                             @if(session('username') != $user->UserName)
+                                @if(session('username') != $user->UserName)
+                                    disabled="disabled"
+                                @endif
+                                    >
                                 Edit
                             </a>
-                            <form action="{{url('/deleteUser/'.$user->UserID)}}" method="post">
+                            <form action="{{url('/deleteUser/'.$user->UserID)}}" method="post"
+                                  @if(session('username') != $user->UserName)
+                                  disabled="disabled"
+                                    @endif
+                            >
                                 {{csrf_field()}}
                                 {{method_field("DELETE")}}
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -58,6 +67,9 @@
                 </tbody>
             </table>
         </div>
+            @else
+            <h3>Empty Users</h3>
+        @endif
     </div>
 
     <nav>

@@ -1,12 +1,15 @@
 @extends('layout.layout')
 @section('content')
+    <h2>My Forum</h2>
     <div class="card-deck flex-column align-items-stretch">
-        @foreach($threads as $thread)
+        @if(count($threads) > 0)
+
+            @foreach($threads as $thread)
             <div class="card m-2">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5>{{$thread->ThreadName}}</h5>
+                            <h5><a href="{{url("forum/". $thread -> ThreadID)}}">{{$thread->ThreadName}}</a></h5>
                             <div>
                                 Status :
                                 @if($thread->isClosed == 0)
@@ -34,6 +37,11 @@
                 </div>
             </div>
         @endforeach
-        {{$threads->links()}}
+        @else
+            <h2>You Have Not Posted Anything</h2>
+        @endif
+
     </div>
+    {{$threads->links()}}
+
 @endsection

@@ -24,6 +24,7 @@
         <div class="card-header" style="display: flex;justify-content: space-between">
             <span>List of Forum Category</span>
         </div>
+        @if(count($categories) > 0)
         <div class="card-body table-responsive">
             <table class="table" width="100%">
                 <thead class="">
@@ -54,6 +55,9 @@
                 </tbody>
             </table>
         </div>
+        @else
+        <h3>Empty Categories...</h3>
+        @endif
     </div>
 
     <nav>

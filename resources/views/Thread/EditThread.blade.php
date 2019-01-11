@@ -23,7 +23,11 @@
                         <label for="category">Category</label>
                         <select name="category" class="form-control">
                             @foreach($categories as $category)
-                                <option value="{{$category -> CategoryID}}">{{$category -> CategoryName}}</option>
+                            <option value="{{$category -> CategoryID}}"
+                                    @if($category->CategoryID == $thread->CategoryID) selected }}
+                            @endif>
+                                    {{$category -> CategoryName}}
+                            </option>
                             @endforeach
                         </select>
                     </div>
