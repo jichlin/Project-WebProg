@@ -23,36 +23,21 @@
 <script type="text/javascript">
     $(document).ready(function(){
         function getCurrentTime(){
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            const weekDay = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
             let a = new Date();
             let date = a.getDate();
-            let month = a.getMonth() + 1;
+            let month = monthNames[a.getMonth()];
             let year = a.getFullYear();
             let hour = a.getHours();
             let minute = a.getMinutes();
             let second = a.getSeconds();
-            var day = "";
-            let d = a.getDay();
-            if(d == 0){
-                day = "Sunday"
-            }
-            else if(d == 1){
-                day = "Monday";
-            }
-            else if(d == 2){
-                day = "Tuesday"
-            }
-            else if(d == 3){
-                day = "Wednesday"
-            }
-            else if(d == 4){
-            day = "Thursday"
-            }
-            else if(d == 5){
-                day = "Friday"
-            }
-            else if(d == 6) {
-                day = "Saturday";
-            }
+            let day = weekDay[a.getDay()];
+
             if(hour < 10){
                 hour = "0" + hour;
             }
@@ -62,16 +47,23 @@
             if(second < 10){
                 second = "0" + second;
             }
-            var time = day + ", " + date +  "-" + month + "-" + year + ", " + hour + ":" + minute + ":" + second;
+            let time = day + ", " + date +  "-" + month + "-" + year + ", " + hour + ":" + minute + ":" + second;
 
             $('#dateTime').html(time);
         }
         setInterval(getCurrentTime,1000);
 
-        $('button[type="submit"] input[type="submit"] ').click(function(){
-           $(this).prop('disabled',true);
+        $('button[type="submit"],input[type="submit"]').on('click',function(){
+            if($.data(this, 'clicked')){
+                return false;
+            }
+            else{
+                $.data(this, 'clicked', true);
+                return true;
+            }
         });
 
+        $('input[type="file"]').attr('accept',"image/*")
     })
 </script>
 </html>

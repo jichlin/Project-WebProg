@@ -26,7 +26,7 @@
                     </tr>
                 </table>
                 <div>Category: {{$threadHeading -> CategoryName}}</div>
-                <div>Owner : {{$threadHeading -> UserName}}</div>
+                <div>Owner : <a href="{{url('/profile/'.$threadHeading->UserName)}}">{{$threadHeading -> UserName}}</a></div>
                 <div>Posted at: {{$threadHeading -> CreatedDate}}</div>
                 <br>
                 <div>Description :</div>
@@ -128,7 +128,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="contentPanel">Content</label>
-                            <textarea class="form-control" name="contentPanel"></textarea>
+                            <textarea class="form-control" name="contentPanel" id="contentPanel"></textarea>
                             @if($errors->has('contentPanel'))
                                 <span>The content field is required.</span>
                             @endif

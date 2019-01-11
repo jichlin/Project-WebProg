@@ -25,7 +25,7 @@
                     </tr>
                 </table>
                 <div>Category: {{$threadHeading -> CategoryName}}</div>
-                <div>Owner : {{$threadHeading -> UserName}}</div>
+                <div>Owner : <a href="{{url('/profile/'.$threadHeading->UserName)}}">{{$threadHeading -> UserName}}</a></div>
                 <div>Posted at: {{$threadHeading -> CreatedDate}}</div>
                 <br>
                 <div>Description :</div>
@@ -110,6 +110,8 @@
         </div>
     </div>
 
+    <div class="mt-2"></div>
+
     @if(session()->exists('username') == true)
         <form action="{{url('/forum/'. $threadHeading -> ThreadID .'/store/'. $users -> UserID)}}" method="POST" role="post">
             {{csrf_field()}}
@@ -121,7 +123,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="contentPanel">Content</label>
-                            <textarea class="form-control" name="contentPanel"></textarea>
+                            <textarea class="form-control" name="contentPanel" id="contentPanel"></textarea>
                             @if($errors->has('contentPanel'))
                                 <span>The content field is required.</span>
                             @endif

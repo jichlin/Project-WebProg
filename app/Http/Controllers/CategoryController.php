@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\User;
-use App\Roles;
-use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -21,10 +17,16 @@ class CategoryController extends Controller
 
     public function add(Request $req)
     {
-        $newCategory = new Category();
-        $newCategory->CategoryName = $req->categoryname;
-        $newCategory->save();
-        return redirect('/master/category');
+        $validator = Validator::make($req->all(),['categoryname' => 'required']);
+        if($validator->fails()){
+            return redirect('/master/category')->withErrors($validator);
+        }
+        else {
+            $newCategory = new Category();
+            $newCategory->CategoryName = $req->categoryname;
+            $newCategory->save();
+            return redirect('/master/category');
+        }
     }
 
     public function remove($id)
@@ -36,16 +38,23 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        return view('Category/EditCategory')->with(compact('id'));
+        $category = Category::find($id);
+
+        return view('Category/EditCategory')->with(compact('category'));
     }
 
     public function update(Request $req, $id)
     {
-        $category  = Category::find($id);
-        //$category = Category::where('CategoryID', $id);
-        $category->CategoryName = $req->categoryname;
-        $category->save();
-        return redirect('/master/category');
+        $validator = Validator::make($req->all(),['categoryname' => 'required']);
+        if($validator->fails()){
+            return redirect('/master/category')->withErrors($validator);
+        }
+        else {
+            $category = Category::find($id);
+            $category->CategoryName = $req->categoryname;
+            $category->save();
+            return redirect('/master/category');
+        }
     }
 
 }

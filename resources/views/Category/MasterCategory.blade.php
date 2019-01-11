@@ -9,6 +9,9 @@
                 {{csrf_field()}}
                 <label for="categoryname">Name</label><span class="red-text">*</span>
                 <input type="text" class="form-control" placeholder="" id="categoryname" name="categoryname">
+                @if($errors->has('categoryname'))
+                    <span class="red-text">{{$errors->first('categoryname')}}</span>
+                @endif
                 <br>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
