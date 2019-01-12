@@ -57,7 +57,9 @@
                                         <tr>
                                             <th class="text-left">
                                                 <label style="font-size: x-large; margin: 0">
-                                                    {{$threadDetail -> UserName}}
+                                                    <a href="{{url('/profile/'.$threadDetail -> UserName)}}">
+                                                        {{$threadDetail -> UserName}}
+                                                    </a>
                                                 </label>
                                                 <div style="font-weight: lighter">
                                                     {{$threadDetail -> RolesName}}
